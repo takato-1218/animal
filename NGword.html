@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダムNGワードジェネレーター</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #randomWord {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>ランダムNGワードジェネレーター</h1>
+    <p>ボタンを押してランダムなNGワードを表示しましょう！</p>
+    <button onclick="generateRandomWord()">NGワードを表示</button>
+    <div id="randomWord"></div>
+
+    <script>
+        const ngWords = [
+            "はい", "ありがとう", "ごめん", "お願い", "すごい", "ちょっと", "わかる", "だから", "できる", "できない",
+            "もう", "心配", "まだ", "そうかも", "嘘", "悪い", "好き", "嫌い", "知っている", "そうかも",
+            "大丈夫", "今", "あと", "たぶん", "やった", "なんで", "はやい", "おそい", "かわいい", "おいしい",
+            "寒い", "暑い", "うそでしょ", "うれしい", "急に", "痛い", "考えすぎ", "高い", "それな", "近い",
+            "小さい", "大きい", "難しい", "簡単", "めんどくさい", "あぶない", "やさしい", "忙しい", "疲れた", "なるほど",
+            "きれい", "うるさい", "見た", "聞いた", "ねえ", "すぐ", "さっき", "まさか", "たくさん", "少し",
+            "どこ", "何", "いつ", "誰", "気分", "それ", "あれ", "この", "その", "あの",
+            "もちろん", "かっこいい", "遅い", "嬉しい", "びっくり", "忘れた", "元気"
+        ];
+
+        function generateRandomWord() {
+            const randomIndex = Math.floor(Math.random() * ngWords.length);
+            const randomWord = ngWords[randomIndex];
+            document.getElementById("randomWord").innerText = randomWord;
+        }
+    </script>
+</body>
+</html>

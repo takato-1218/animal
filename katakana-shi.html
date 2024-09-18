@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ランダムカタカナ単語ジェネレーターとストップウォッチ</title>
+    <title>ランダムカタカナ単語ジェネレーター</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,6 +14,7 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            margin: 5px;
         }
         #randomWord {
             margin-top: 20px;
@@ -28,9 +29,10 @@
     </style>
 </head>
 <body>
-    <h1>ランダムカタカナ単語ジェネレーターとストップウォッチ</h1>
+    <h1>ランダムカタカナ単語ジェネレーター</h1>
     <p>ボタンを押してランダムなカタカナ単語を表示し、ストップウォッチを動かしましょう！</p>
-    <button id="startStopButton" onclick="startStop()">単語を表示 & ストップウォッチ開始/停止</button>
+    <button id="startButton" onclick="start()">単語を表示 & ストップウォッチ開始</button>
+    <button id="stopButton" onclick="stopStopwatch()">ストップウォッチ停止</button>
     <div id="randomWord"></div>
     <div id="stopwatch">00:00:00</div>
 
@@ -52,21 +54,19 @@
         let stopwatchRunning = false;
         let startTime = 0;
 
+        // Function to generate a random katakana word and start the stopwatch
+        function start() {
+            generateRandomWord();
+            if (!stopwatchRunning) {
+                startStopwatch();
+            }
+        }
+
         // Function to generate a random katakana word
         function generateRandomWord() {
             const randomIndex = Math.floor(Math.random() * katakanaWords.length);
             const randomWord = katakanaWords[randomIndex];
             document.getElementById("randomWord").innerText = randomWord;
-        }
-
-        // Function to start or stop the stopwatch
-        function startStop() {
-            generateRandomWord(); // Generate random word when button is clicked
-            if (!stopwatchRunning) {
-                startStopwatch();
-            } else {
-                stopStopwatch();
-            }
         }
 
         // Function to start the stopwatch

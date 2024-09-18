@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ランダムカタカナ単語ジェネレーター</title>
+    <title>ランダムカタカナ単語ジェネレーターとストップウォッチ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,13 +20,19 @@
             font-size: 24px;
             font-weight: bold;
         }
+        #stopwatch {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <h1>ランダムカタカナ単語ジェネレーター</h1>
-    <p>ボタンを押してランダムなカタカナ単語を表示しましょう！</p>
-    <button onclick="generateRandomWord()">単語を表示</button>
+    <h1>ランダムカタカナ単語ジェネレーターとストップウォッチ</h1>
+    <p>ボタンを押してランダムなカタカナ単語を表示し、ストップウォッチを動かしましょう！</p>
+    <button id="startStopButton" onclick="startStop()">単語を表示 & ストップウォッチ開始/停止</button>
     <div id="randomWord"></div>
+    <div id="stopwatch">00:00:00</div>
 
     <script>
         const katakanaWords = [
@@ -39,20 +45,50 @@
             "キャベツ", "レタス", "ビスケット", "クッキー", "カップ", "サラダ", "スープ", "エレベーター", "エスカレーター", "バイオリン",
             "ピアノ", "ギター", "バスケット", "ボウル", "スケート", "スキー", "サッカー", "バレーボール", "テニス", "ゴルフ",
             "ラジオ", "バンド", "タブレット", "メール", "ワイン", "ビール", "トラック", "スーパーマーケット", "バス停", "ホテル",
-            "レストラン", "カフェ", "アイロン", "ブランコ", "シーソー", "モニター", "ペット", "コンタクトレンズ", "ボール", "リップクリーム",
-            "トランプ", "チーズ", "ドーナツ", "パフェ", "ペットボトル", "ピクニック", "カーペット", "リビング", "クリスマス", "カラオケ",
-            "バーベキュー", "キャラクター", "シャワー", "スリム", "トレーニング", "ベスト", "グローブ", "スーツ", "トレーナー", "パジャマ",
-            "ジェットコースター", "ヒーロー", "プリン", "チップス", "カウボーイ", "スパゲッティ", "カレー", "ペイント", "オペラ", "ギャラリー",
-            "ボート", "ヨット", "ランニング", "サンドバッグ", "バランスボール", "フラミンゴ", "コアラ", "ワークショップ", "バンドエイド", "カプセル",
-            "エアコン", "ホットドッグ", "サングラス", "シール", "リボン", "ガーデニング", "ピッチャー", "チーム", "タワー", "ネックレス",
-            "ウォーターサーバー", "フェリー", "マラソン", "サーフィン", "スケートボード", "ラケット", "リーダー", "アルバイト", "オフィス", "エンジン",
-            "デジタルカメラ", "キッチン", "パスポート", "ゴールデン", "ゴリラ", "ロボット", "バナナ", "アプリ", "ドキュメント", "ウィンドウ"
+            "レストラン", "カフェ", "アイロン", "ブランコ", "シーソー", "モニター", "ペット", "コンタクトレンズ", "ボール", "リップクリーム"
         ];
 
+        let stopwatchInterval;
+        let stopwatchRunning = false;
+        let startTime = 0;
+
+        // Function to generate a random katakana word
         function generateRandomWord() {
             const randomIndex = Math.floor(Math.random() * katakanaWords.length);
             const randomWord = katakanaWords[randomIndex];
             document.getElementById("randomWord").innerText = randomWord;
+        }
+
+        // Function to start or stop the stopwatch
+        function startStop() {
+            generateRandomWord(); // Generate random word when button is clicked
+            if (!stopwatchRunning) {
+                startStopwatch();
+            } else {
+                stopStopwatch();
+            }
+        }
+
+        // Function to start the stopwatch
+        function startStopwatch() {
+            stopwatchRunning = true;
+            startTime = Date.now();
+            stopwatchInterval = setInterval(updateStopwatch, 1000);
+        }
+
+        // Function to stop the stopwatch
+        function stopStopwatch() {
+            stopwatchRunning = false;
+            clearInterval(stopwatchInterval);
+        }
+
+        // Function to update the stopwatch display
+        function updateStopwatch() {
+            const elapsedTime = Date.now() - startTime;
+            const hours = Math.floor(elapsedTime / (1000 * 60 * 60)).toString().padStart(2, '0');
+            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            document.getElementById("stopwatch").innerText = `${hours}:${minutes}:${seconds}`;
         }
     </script>
 </body>
